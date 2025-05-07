@@ -92,11 +92,8 @@ Para completar este primera parte de la practica, se nos pedia mostrar el árbol
 ![imagen](https://github.com/idiezd2022/MSR-P3-irene_diez/blob/main/visual_things/frames.png)
 
 
+# PARTE B:
 
+En esta segunda parte, el objetivo principal era conseguir un análisis de coste del mecanismo pick and place (equivalente a la Fase 3 de la práctica 2) en el simulador Gazebo mediante el framework de MoveIt2. Para ello, partimos de la base de la primera parte de la practica, con el robot ya implementado en ros2.
 
-
-
-
-
-
-## PARTE B:
+Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los archivos.
