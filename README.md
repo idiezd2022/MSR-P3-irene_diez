@@ -85,6 +85,7 @@ Vemos que:
 
 ![imagen](https://github.com/user-attachments/assets/bbf4b5e8-816d-4d8f-9128-3695a9cb787a)
 
+[Video del funcionamiento](https://github.com/user-attachments/assets/63d3e0dc-52f5-4471-a9f4-67fbcd923f40)
 
 
 
