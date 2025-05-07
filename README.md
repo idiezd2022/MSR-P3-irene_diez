@@ -87,6 +87,11 @@ Vemos que:
 
 [Video del funcionamiento](https://github.com/user-attachments/assets/63d3e0dc-52f5-4471-a9f4-67fbcd923f40)
 
+Para completar este primera parte de la practica, se nos pedia mostrar el árbol de transformadas entre los links del robot:
+
+![imagen](/visual_things/frame.png)
+
+
 
 
 
