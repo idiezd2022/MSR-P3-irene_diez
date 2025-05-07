@@ -89,7 +89,7 @@ Vemos que:
 
 Para completar este primera parte de la practica, se nos pedia mostrar el árbol de transformadas entre los links del robot:
 
-![imagen](/visual_things/frame.png)
+![imagen](https://github.com/idiezd2022/MSR-P3-irene_diez/blob/main/visual_things/frames.png)
 
 
 
