@@ -36,5 +36,61 @@ Una vez creado el paquete, creé varias carpetas siguiendo la estructura indicad
 
 - **lykos.urdf.xacro**: macro principal del robot, la cual incluye y ensambla todas las macros anteriores para formar el modelo completo de Lykos.
 
+![imagen](https://github.com/user-attachments/assets/07596ec5-88b0-4f5a-b54c-f64d4757b186)
+
+### Lanzamiento y visualización en RViz
+
+Una vez creado el modelo del robot, se procedemos a implementar el *launcher* y configurar RViz para su visualización. Primero, se crea un archivo de lanzamiento (`launch/lykos_state_publisher.launch.py`) que carga el modelo del robot y lanza RViz con la configuración deseada. Este archivo utiliza `robot_state_publisher` para publicar la descripción del robot e incluye un nodo adicional, `joint_state_publisher_gui`, para controlar manualmente las articulaciones. También se incluye un archivo de configuración para RViz (`rviz/robot.rviz`) donde se define la vista inicial, los *frames* a mostrar y los sensores del robot. Un trozo del launcher:
+
+```bash
+robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'robot_description': robot_description_param,
+        }]
+    )
+
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        output='screen'
+    )
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', PathJoinSubstitution([FindPackageShare("lykos_description"), "rviz", "robot.rviz"])]
+    )
+```
+
+Al lanzar este archivo con:
+
+```bash
+ros2 launch lykos_description robot_launch.py
+```
+
+Vemos que:
+- La visualización de las tf se realiza correctamente:
+
+![imagen](https://github.com/user-attachments/assets/87a6202c-5839-4f44-8a5a-c44def1a80a5)
+
+- El modelo del robot se ve correctamente y además, el panel del control de los joints tambien funciona correctamente.
+
+![imagen](https://github.com/user-attachments/assets/bbf4b5e8-816d-4d8f-9128-3695a9cb787a)
+
+
+
+
+
+
+
+
 
 ## PARTE B:
