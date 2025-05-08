@@ -182,6 +182,8 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
 - `Launchers`: además del que se hizo para la anterior parte, se tuvo que proceder a crear dos nuevos launchers. Uno para el gazebo y otro para lanzar los contoladores.
   - `robot_gazebo.launch.py`: En este, como su propio nombre indica, launchea el gazebo y al robot para poder visualizarlo. Además, lanza rviz, el mundo usado, las camaras, entre otras cosas.
   - `robot_controllers.launch.py`: Por otro lado, este launcher está especificamente creado para launchear los archivos de configuración de los controladores para poder cargarlos y activarlos.
+- `package.xml`: para poder utilizar las , había que implementar las dependencias
+- 
 
 
 
