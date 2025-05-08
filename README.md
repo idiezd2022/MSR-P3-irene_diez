@@ -97,3 +97,101 @@ Para completar este primera parte de la practica, se nos pedia mostrar el árbol
 En esta segunda parte, el objetivo principal era conseguir un análisis de coste del mecanismo pick and place (equivalente a la Fase 3 de la práctica 2) en el simulador Gazebo mediante el framework de MoveIt2. Para ello, partimos de la base de la primera parte de la practica, con el robot ya implementado en ros2.
 
 Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los archivos.
+
+- `Xacros de las ruedas`: Para poder lanzarlas correctamente en Gazebo y permitir su control, fue necesario añadir las siguientes líneas de código:
+
+```c++
+    <transmission name="${prefix}_Wheel_${lado de la rueda}_joint_trans">
+      <type>transmission_interface/SimpleTransmisson</type>
+      <joint name="${prefix}_Wheel_R_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}_Wheel_${lado de la rueda}_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <gazebo reference="${prefix}_Wheel_${lado de la rueda}_link">
+      <mu1>5</mu1>
+      <mu2>5</mu2>
+    </gazebo>
+
+```
+- `Xacro de los sensores`: En la parte anterior, estos se implementaron simplemente como un elemento decorativo más, sin ningun tipo de funcionamiento. Esa era la base para en esta parte poder implementar su verdadera función. Para ello, en cada xacro se añadió las funciones correspondientes que permitían su funcionalidad.
+  - `camera.urdf.xacro`: En este caso implemntarmos una función generica para poder llamar cuantas cámaras queramos.
+```c++
+<gazebo reference="${frame_prefix}_camera_frame">
+    <sensor name="${frame_prefix}_sensor" type="camera">
+      <visualize>true</visualize>
+      <update_rate>30</update_rate>
+      <topic>${frame_prefix}/image</topic> 
+      <camera>
+        <horizontal_fov>${radians(float(20))}</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.10</near>
+          <far>15.0</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+        <optical_frame_id>${frame_prefix}_camera_frame</optical_frame_id>
+      </camera>
+    </sensor>
+  </gazebo>
+</xacro:macro>
+```
+  - `imu.urdf.xacro`: Añadimos el pluggin de gazebo correspondiente.
+```c++
+<gazebo reference="gps_base_link">
+    <sensor name="gps_sensor" type="navsat">
+      <always_on>1</always_on>
+      <update_rate>5.0</update_rate>
+      <topic>/robot/gps/fix</topic>
+      <gz_frame_id>gps_base_link</gz_frame_id>
+    </sensor>
+  </gazebo>
+```
+  - `gps.urdf.xacro`:Añadimos el pluggin de gazebo correspondiente.
+```c++
+<gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <topic>'imu/data'</topic>
+    </sensor>
+  </gazebo>
+```
+- `lykos.urdf.xacro`: Se añadieron las lineas que implementan el archivo de configuración de los controladores.
+```c++
+<!-- Gazebo ROS control pluggins -->
+<xacro:include filename="$(find lykos_description)/urdf/ros2_control.urdf.xacro"/>
+<xacro:arg name="config_controllers" default="$(find lykos_description)/config/lykos_controllers.yaml"/>
+<xacro:arg name="update_rate" default="20"/>
+<xacro:ros2_control/>
+```
+- `ros2_control.urdf.xacro`: Creamos el archivo que 
+- `robot_brigde.yaml`: Creamos esste archivo para poder implementar las funciones de los sensores (solamente los del gps y imu).
+- `lykos_controllers.yaml`: Creamos este archivo para poder implementar los controladores del brazo y de las ruedas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
