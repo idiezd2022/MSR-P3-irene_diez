@@ -200,8 +200,8 @@ action_ns: follow_joint_trajectory
 default: true
 use_sim_time: true
 ```
-- `ros2_control.urdf.xacro`:
-- `ros2_control.urdf.xacro`:
+
+Una vez que tenemos esto, tras commprar que tenemos los dos paquetes correctamente implementados y los launchers modificados con los nuevos cambios, procedemos a la siguiente parte de la parte B.
 
 
 
