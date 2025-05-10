@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="gripper" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="gripper">
+    <link name="Arm_Hand_link">
+      <collision name="Arm_Hand_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.020.dae" scale="0.20000 0.45000 0.05000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.61228" ixy="-0.00000" ixz="0.00000" iyy="0.46560" iyz="0.00000" izz="0.23047"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.18100"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_Hand">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <material name="Black"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.020.dae" scale="0.20000 0.45000 0.05000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="Arm_Hand_link_joint" type="revolute">
+      <limit lower="-3.14000" upper="3.14000" effort="100000.00000" velocity="100000.00000"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -2.50000"/>
+      <parent link="Arm_L3_link"/>
+      <child link="Arm_Hand_link"/>
+      <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+
+  </xacro:macro>
+</robot>

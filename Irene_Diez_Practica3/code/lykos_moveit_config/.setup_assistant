@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: lykos_description
+    relative_path: robots/lykos.urdf.xacro
+  srdf:
+    relative_path: config/lykos.srdf
+  package_settings:
+    author_name: Irene Diez de Toro
+    author_email: i.diezd.2022@alumnos.urjc.es
+    generated_timestamp: 1746608289
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

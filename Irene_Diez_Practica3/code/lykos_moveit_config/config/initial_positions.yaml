@@ -1,0 +1,9 @@
+# Default initial positions for lykos's ros2_control fake system
+
+initial_positions:
+  Arm_Finger_L_finger_link_joint: 0
+  Arm_Finger_R_finger_link_joint: 0
+  Arm_Hand_link_joint: 0
+  Arm_L1_link_joint: 0
+  Arm_L2_link_joint: 0
+  Arm_L3_link_joint: 0

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="scara_arm" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="arm" params="base_link">
+    <link name="Arm_Base_link">
+      <collision name="Arm_Base_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <cylinder radius="0.20000" length="0.20000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.06667" ixy="0.00000" ixz="0.00000" iyy="0.06667" iyz="0.00000" izz="0.10000"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_Base">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <material name="Black"/>
+        <geometry>
+          <cylinder radius="0.20000" length="0.20000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="Arm_Base2_link">
+      <collision name="Arm_Base2_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <geometry>
+          <cylinder radius="0.15000" length="1.60000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="1.09479" ixy="0.00000" ixz="0.00000" iyy="1.09479" iyz="0.00000" izz="0.05625"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_Base2">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <material name="All_White"/>
+        <geometry>
+          <cylinder radius="0.15000" length="1.60000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="Arm_L1_link">
+      <collision name="Arm_L1_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.75000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.017.dae" scale="0.75000 0.20000 0.10000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.06946" ixy="-0.00000" ixz="0.00000" iyy="1.35203" iyz="-0.00000" izz="1.39089"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.74265 0.00000 -0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_L1">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.75000 0.00000 -0.00000"/>
+        <material name="All_White"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.017.dae" scale="0.75000 0.20000 0.10000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="Arm_L2_link">
+      <collision name="Arm_L2_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -1.00000 0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.019.dae" scale="0.20000 1.00000 0.10000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="2.38302" ixy="-0.00000" ixz="0.00000" iyy="0.06940" iyz="0.00000" izz="2.42254"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -1.00000 0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_L2">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -1.00000 0.00000"/>
+        <material name="All_White"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.019.dae" scale="0.20000 1.00000 0.10000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="Arm_L3_link">
+      <collision name="Arm_L3_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cilindro.014.dae" scale="0.15000 0.15000 1.75000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="5.13229" ixy="0.00000" ixz="0.00000" iyy="5.13229" iyz="0.00000" izz="0.05625"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <mass value="5.00000"/>
+      </inertial>
+      <visual name="Arm_L3">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <material name="All_White"/>
+        <geometry>
+          <cylinder radius="0.15000" length="3.50000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="Arm_Base_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.70000"/>
+      <parent link="base_link"/>
+      <child link="Arm_Base_link"/>
+    </joint>
+
+    <joint name="Arm_Base2_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.90000"/>
+      <parent link="Arm_Base_link"/>
+      <child link="Arm_Base2_link"/>
+    </joint>
+    
+    <joint name="Arm_L1_link_joint" type="revolute">
+      <limit lower="-3.14000" upper="3.14000" effort="100000.00000" velocity="100000.00000"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.90000"/>
+      <parent link="Arm_Base2_link"/>
+      <child link="Arm_L1_link"/>
+      <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+
+    <joint name="Arm_L2_link_joint" type="revolute">
+      <limit lower="-3.14000" upper="3.14000" effort="100000.00000" velocity="100000.00000"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="1.45000 0.00000 0.20000"/>
+      <parent link="Arm_L1_link"/>
+      <child link="Arm_L2_link"/>
+      <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+    
+    <joint name="Arm_L3_link_joint" type="prismatic">
+      <limit lower="-2" upper="1.5" effort="100000.00000" velocity="100000.00000"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -2.00000 -0.00000"/>
+      <parent link="Arm_L2_link"/>
+      <child link="Arm_L3_link"/>
+      <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+    
+  </xacro:macro>
+</robot>

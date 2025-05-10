@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lykos">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import lykos urdf file -->
+    <xacro:include filename="$(find lykos_description)/robots/lykos.urdf.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="lykos.srdf" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="lykos.ros2_control.xacro" />
+
+
+    <xacro:lykos_ros2_control name="ScaraArm" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

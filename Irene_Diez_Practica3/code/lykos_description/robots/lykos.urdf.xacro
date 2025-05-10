@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="lykos" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include filename="$(find lykos_description)/urdf/utils/utils.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/base/lykos_base.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/sensors/imu.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/sensors/gps.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/sensors/camera.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/wheels/left_wheels.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/wheels/right_wheels.urdf.xacro"/> 
+  <xacro:include filename="$(find lykos_description)/urdf/scara_arm/fingers.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/scara_arm/gripper.urdf.xacro"/>
+  <xacro:include filename="$(find lykos_description)/urdf/scara_arm/arm.urdf.xacro"/>
+  
+  <xacro:utils/>
+  <xacro:lykos_base/>
+
+  <xacro:left_wheels prefix="Front" lcoords="1.20000 -0.20000 -0.90000" gcoords="-0.00000 -0.50000 -0.20000" wcoords="-0.00000 0.00000 0.00000" base_link="base_link"/>
+  <xacro:left_wheels prefix="Middle" lcoords="0.00000 -0.20000 -0.90000" gcoords="0.00000 -0.50000 -0.20000" wcoords="0.00000 0.00000 0.0000" base_link="base_link"/>
+  <xacro:left_wheels prefix="Rear" lcoords="-1.20000 -0.20000 -0.90000" gcoords="0.00000 -0.50000 -0.20000"  wcoords="0.00000 0.00000 0.00000" base_link="base_link"/>
+  <xacro:right_wheels prefix="Front" lcoords="1.20000 0.20000 -0.90000" gcoords="-0.00000 0.50000 -0.20000" wcoords="-0.00000 -0.00000 -0.00000" base_link="base_link"/>
+  <xacro:right_wheels prefix="Middle" lcoords="0.00000 0.20000 -0.90000" gcoords="0.00000 0.50000 -0.20000" wcoords="0.00000 -0.00000 -0.00000" base_link="base_link"/>
+  <xacro:right_wheels prefix="Rear" lcoords="-1.20000 0.20000 -0.90000" gcoords="0.00000 0.50000 -0.20000" wcoords="0.00000 -0.00000 -0.00000" base_link="base_link"/>
+
+  <xacro:fingers name="Arm_Finger_R_finger" y="0.40000" lower_limit="-0.25" upper_limit="0"/>
+  <xacro:fingers name="Arm_Finger_L_finger" y="-0.40000" lower_limit="0" upper_limit="0.25"/>
+  <xacro:gripper/>
+  <xacro:arm base_link="base_link"/>
+
+  <xacro:imu/>
+  <xacro:gps/>
+  <xacro:camera frame_prefix="frontal_camera" color="Black" origin="0.05000 -0.00000 0.00000" parent="Eye_RE_link" pos="0.2"/>
+  <xacro:camera frame_prefix="scara_camera" color="All_White" origin="0.20000 -0.00000 0.10000" parent="Arm_Hand_link" pos="1.5"/>
+
+  <!-- Gazebo ROS control pluggins -->
+  <xacro:include filename="$(find lykos_description)/urdf/ros2_control.urdf.xacro"/>
+  <xacro:arg name="config_controllers" default="$(find lykos_description)/config/lykos_controllers.yaml"/>
+  <xacro:arg name="update_rate" default="20"/>
+  <xacro:ros2_control/> 
+</robot>

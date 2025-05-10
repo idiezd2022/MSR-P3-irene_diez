@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="right_wheels" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="right_wheels" params="prefix lcoords gcoords wcoords base_link">
+    <link name="${prefix}_Leg_R_link">
+      <collision name="${prefix}_Leg_R_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 -0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.001.dae" scale="0.10000 0.10000 0.30000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.47588" ixy="0.00000" ixz="0.00000" iyy="0.35272" iyz="0.10761" izz="0.18921"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.06471 -0.05882"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_Leg_R">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+        <material name="Light_Gray"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Cubo.001.dae" scale="0.10000 0.10000 0.30000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_Gear_R_link">
+      <collision name="${prefix}_Gear_R_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+        <geometry>
+          <cylinder radius="0.25000" length="0.30000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.23125" ixy="0.00000" ixz="0.00000" iyy="0.31250" iyz="-0.00000" izz="0.23125"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_Gear_R">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+        <material name="Dark_Gray"/>
+        <geometry>
+          <cylinder radius="0.25000" length="0.30000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="${prefix}_Wheel_R_link">
+      <collision name="${prefix}_Wheel_R_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Rosca.001.dae" scale="0.32000 0.32000 1.00000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.49840" ixy="-0.00000" ixz="-0.00000" iyy="0.75069" iyz="-0.00000" izz="0.49840"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <mass value="10.00000"/>
+      </inertial>
+      <visual name="${prefix}_Wheel_R">
+        <origin rpy="-0.00000 0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+        <material name="Black"/>
+        <geometry>
+          <mesh filename="file://$(find lykos_description)/meshes/dae/Rosca.001.dae" scale="0.32000 0.32000 1.00000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_Leg_R_link_joint" type="fixed">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="${lcoords}"/>
+      <parent link="${base_link}"/>
+      <child link="${prefix}_Leg_R_link"/>
+    </joint>
+
+    <joint name="${prefix}_Gear_R_link_joint" type="fixed">
+      <origin rpy="-1.57080 0.00000 0.00000" xyz="${gcoords}"/>
+      <parent link="${prefix}_Leg_R_link"/>
+      <child link="${prefix}_Gear_R_link"/>
+    </joint>
+
+    <joint name="${prefix}_Wheel_R_link_joint" type="continuous">
+      <limit lower="0" upper="0" effort="100000.00000" velocity="100000.00000"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="${wcoords}"/>
+      <parent link="${prefix}_Gear_R_link"/>
+      <child link="${prefix}_Wheel_R_link"/>
+      <axis xyz="0.00000 0.00000 1.00000"/>
+    </joint>
+
+    <transmission name="${prefix}_Wheel_R_joint_trans">
+      <type>transmission_interface/SimpleTransmisson</type>
+      <joint name="${prefix}_Wheel_R_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}_Wheel_R_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <gazebo reference="${prefix}_Wheel_R_link">
+      <mu1>5</mu1>
+      <mu2>5</mu2>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="utils" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="utils">
+    <material name="All_White">
+      <color rgba="1.00000 1.00000 1.00000 1.00000"/>
+    </material>
+    <material name="Black">
+      <color rgba="0.00000 0.00000 0.00000 1.00000"/>
+    </material>
+    <material name="Dark_Gray">
+      <color rgba="0.24314 0.24314 0.24314 1.00000"/>
+    </material>
+    <material name="Light_Gray">
+      <color rgba="0.36471 0.35294 0.38824 1.00000"/>
+    </material>
+
+  </xacro:macro>
+</robot>

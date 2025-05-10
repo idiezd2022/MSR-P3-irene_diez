@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!-- created with Phobos 1.0.1 "Capricious Choutengan" -->
+<robot name="camera" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="camera" params="frame_prefix color origin parent pos">
+    <link name="${frame_prefix}_link">
+      <collision name="${frame_prefix}_collision">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.01817" ixy="0.00000" ixz="0.00000" iyy="0.00150" iyz="0.00000" izz="0.01667"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 -0.00000"/>
+        <mass value="0.10000"/>
+      </inertial>
+      <visual name="${frame_prefix}">
+        <origin rpy="0.00000 -0.00000 0.00000" xyz="-0.00000 0.00000 -0.00000"/>
+        <material name="${color}"/>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="${frame_prefix}_link_joint" type="fixed">
+      <origin rpy="0.00000 0 0.00000" xyz="${origin}"/>
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}_link"/>
+    </joint>
+
+    <link name="${frame_prefix}_camera_frame"/>
+    <joint name="${frame_prefix}_camera_frame_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 ${pos} 0"/>
+      <parent link="${frame_prefix}_link"/>
+      <child link="${frame_prefix}_camera_frame"/>
+    </joint>
+
+    <gazebo reference="${frame_prefix}_camera_frame">
+      <sensor name="${frame_prefix}_sensor" type="camera">
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+        <topic>${frame_prefix}/image</topic> 
+        <camera>
+          <horizontal_fov>${radians(float(20))}</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.10</near>
+            <far>15.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+          <optical_frame_id>${frame_prefix}_camera_frame</optical_frame_id>
+        </camera>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
