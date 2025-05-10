@@ -42,7 +42,7 @@ Una vez creado el paquete, creé varias carpetas siguiendo la estructura indicad
 
 Una vez creado el modelo del robot, se procedemos a implementar el *launcher* y configurar RViz para su visualización. Primero, se crea un archivo de lanzamiento (`launch/lykos_state_publisher.launch.py`) que carga el modelo del robot y lanza RViz con la configuración deseada. Este archivo utiliza `robot_state_publisher` para publicar la descripción del robot e incluye un nodo adicional, `joint_state_publisher_gui`, para controlar manualmente las articulaciones. También se incluye un archivo de configuración para RViz (`rviz/robot.rviz`) donde se define la vista inicial, los *frames* a mostrar y los sensores del robot. Un trozo del launcher:
 
-```bash
+```python
 robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -100,7 +100,7 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
 
 - `Xacros de las ruedas`: Para poder lanzarlas correctamente en Gazebo y permitir su control, fue necesario añadir las siguientes líneas de código:
 
-```c++
+```xacro
     <transmission name="${prefix}_Wheel_${lado de la rueda}_joint_trans">
       <type>transmission_interface/SimpleTransmisson</type>
       <joint name="${prefix}_Wheel_R_joint">
@@ -119,7 +119,7 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
 ```
 - `Xacro de los sensores`: En la parte anterior, estos se implementaron simplemente como un elemento decorativo más, sin ningun tipo de funcionamiento. Esa era la base para en esta parte poder implementar su verdadera función. Para ello, en cada xacro se añadió las funciones correspondientes que permitían su funcionalidad.
   - `camera.urdf.xacro`: En este caso implemntarmos una función generica para poder llamar cuantas cámaras queramos.
-```c++
+```xacro
 <gazebo reference="${frame_prefix}_camera_frame">
     <sensor name="${frame_prefix}_sensor" type="camera">
       <visualize>true</visualize>
@@ -148,7 +148,7 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
 </xacro:macro>
 ```
   - `imu.urdf.xacro`: Añadimos el pluggin de gazebo correspondiente.
-```c++
+```xacro
 <gazebo reference="gps_base_link">
     <sensor name="gps_sensor" type="navsat">
       <always_on>1</always_on>
@@ -159,7 +159,7 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
   </gazebo>
 ```
   - `gps.urdf.xacro`:Añadimos el pluggin de gazebo correspondiente.
-```c++
+```xacro
 <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
       <always_on>1</always_on>
@@ -169,21 +169,53 @@ Para esta fase, se debían de realizar cambios muy relevantes en cada uno de los
   </gazebo>
 ```
 - `lykos.urdf.xacro`: Se añadieron las lineas que implementan el archivo de configuración de los controladores.
-```c++
+```xacro
 <!-- Gazebo ROS control pluggins -->
 <xacro:include filename="$(find lykos_description)/urdf/ros2_control.urdf.xacro"/>
 <xacro:arg name="config_controllers" default="$(find lykos_description)/config/lykos_controllers.yaml"/>
 <xacro:arg name="update_rate" default="20"/>
 <xacro:ros2_control/>
 ```
-- `ros2_control.urdf.xacro`: Creamos el archivo que 
+- `ros2_control.urdf.xacro`: Creamos el archivo que especifica la configuración de ros2_control para controlar las ruedas del robot mediante ROS 2.
 - `robot_brigde.yaml`: Creamos esste archivo para poder implementar las funciones de los sensores (solamente los del gps y imu).
 - `lykos_controllers.yaml`: Creamos este archivo para poder implementar los controladores del brazo y de las ruedas.
 - `Launchers`: además del que se hizo para la anterior parte, se tuvo que proceder a crear dos nuevos launchers. Uno para el gazebo y otro para lanzar los contoladores.
   - `robot_gazebo.launch.py`: En este, como su propio nombre indica, launchea el gazebo y al robot para poder visualizarlo. Además, lanza rviz, el mundo usado, las camaras, entre otras cosas.
   - `robot_controllers.launch.py`: Por otro lado, este launcher está especificamente creado para launchear los archivos de configuración de los controladores para poder cargarlos y activarlos.
-- `package.xml`: para poder utilizar las , había que implementar las dependencias
-- 
+- `package.xml`: para poder utilizar las , había que implementar las dependencias necesarias para teleoperar el robot, usar los controladores, etc.
+
+Una vez hemos tenido estos archivos, pasamos a la parte de configuración del scara. Para ello, creamos otro paquete de ros con las carpetas launch y config; y usamos el asistente de moveit con el siguiente comando: `ros2 launch moveit_setup_assistant setup_assistant.launch.py`. Y siguiendo los pasos del video proporcionado en el aula virutal, generamos el paquete. Y cambiamos en los siguientes archivos lo siguiente:
+
+- `joint_limits.yaml`: En cada joint debemos de poner esto:
+```yaml
+has_velocity_limits: true
+has_acceleration_limits: true
+max_acceleration: 10.0
+```
+- `lykos.ros2_control.urdf.xacro`: cambiar el plugin existente por este: <plugin>gz_ros2_control/GazeboSimSystem</plugin>.
+- `lykos.urdf.xacro`: debemos añadir esta linea <xacro:include filename="lykos.srdf"/> y cambiar el nombre de lykos_ros2_control a ScaraArm.
+- `moveit_controllers.yaml`: Al principio debemos de añadir un use_sim_time:true y en cada controller:
+```yaml
+action_ns: follow_joint_trajectory
+default: true
+use_sim_time: true
+```
+- `ros2_control.urdf.xacro`:
+- `ros2_control.urdf.xacro`:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
