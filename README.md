@@ -220,7 +220,7 @@ Con esto lanzamos todo lo relacionado con la simulación del robot y su teleoper
 
 Como veremos en el siguiente video, la teleoperacion de las ruedas fucnionan ya que los controladores se han cargado correctamente. Aunque como se puede ver, no se manejar el robot correctamente.
 
-[wheel_controllers]()
+[wheel_controllers](https://github.com/idiezd2022/MSR-P3-irene_diez/blob/main/visual_things/wheel_controllers.mp4)
 
 Por otro lado, para poder mover el brazo, usaremos el plugin en rviz de moveit, MotionPlanning. Una vez lo añadimos, usaremos dos pestañas en concreto.
 - `Context`: Esta pestaña sirve para elegit el planificador con el que queremos realizar el plan. Muy importante seleccionar el planificador OMPL para poder planificar el movimiento de nuestro brazo, ya que sino no funciona. Cabe destacar que en la siguiente pestaña cada vez que se cambia de grupo, el planificador se configura al de por defecto (que es CHOMP), por ello hay que tener en cuenta esto cada vez que lo realizamos para poder cambiarlo y no experimentar errores.
