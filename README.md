@@ -241,14 +241,14 @@ Para hacer esta secuencia, al no tener mucho control sobre las ruedas y por falt
 Para esta parte, si he realizado un rosbag de los joints y del imu. Ya que no muevo el robot, en este rosbag los datos del brazo son los unicos que contienen valores. Además, tampoco he podido realizar la gráfica con estos datos por que no he podido pasarlos del rosbag a cualquier otro formato que me permitiera manejarlos (en el ordenador de la uni, intentando hacer el código, me pedia unas dependencias que no estaban instaladas y no tenia mas tiempo de mirar alternativas).
 El rosbag (entregado también en la entrega), se encuentra en la carpeta del repositorio llamada rosbag_topics.
 
-# DIFICULTADES EXPERIMENTADAS DURANTE LA REALIZACIÓN DE LA PRÁCTICA,
+# DIFICULTADES EXPERIMENTADAS DURANTE LA REALIZACIÓN DE LA PRÁCTICA.
 
 Durante la realización de esta práctica he atravesado bastantes dificultades durante el desarrollo de esta misma. Cabe destacar, que gracias al foro, muchas de estas pude solucionarlas.
 
 - Realización de los xacros: Esta parte fue bastante costosa porque me costó entender como se formaba cada xacro.
 - Rviz: me costó visualizar mi robot en rviz, ya que no sabia como configurar bien el rviz. Viendo los mensajes puestos en el foro, pude solucionar esto (ya que no estaba seleccionando el topic que publicaba el robot).
 - Visualización de las cámaras: al principio, tras varias pruebas y cambios en los xacros, estas no se veían. Tras muchas vueltas, vi que en el launcher tenía mal puestos los topics (no revisé bien).
-- Ordenadores de la universidad y problemas con las dependencias instaladas. Este problema se pudo resolver el ultimo dia de practicas después de varios días con errores sin saber cual era el problema, donde había que instalar unas dependencias que daban error. Esto tan solo se arregló en un par de ordenadores de alli ya que nos ayudó el profe a instalarlo (gracias a esto pude realizar el pick and place).
+- Problemas con las dependencias instaladas en los ordenadores de la universidad. Este problema se pudo resolver el ultimo dia de practicas después de varios días con errores sin saber cual era el problema, donde había que instalar unas dependencias que daban error. Esto tan solo se arregló en un par de ordenadores de alli ya que nos ayudó el profe a instalarlo (gracias a esto pude realizar el pick and place).
 - Movimiento del brazo: cuando llegué a la parte de planificar, este hacía y ejecutaba el plan, pero no se movía. Tras dar varias vueltas una compañera y yo, pudimos ver que el problema era que no le habiamos puesto suficiente fuerza en los joints del scara. Hay que ponerle una que asegure que el robot tenga fuerza suficiente.
 
 
