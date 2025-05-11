@@ -229,6 +229,9 @@ Por otro lado, para poder mover el brazo, usaremos el plugin en rviz de moveit, 
 ![Captura desde 2025-05-10 15-20-12](https://github.com/user-attachments/assets/78330c06-5f41-4740-bd17-420742716a49)
 
 
+![Video_pick_and_place](https://urjc-my.sharepoint.com/:v:/g/personal/i_diezd_2022_alumnos_urjc_es/EU3Gq4X8mPNHizQja2--0XkB-a8X2gV9mKxNTDHSXPa3CQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=wLPijL)
+
+
 ![Captura desde 2025-05-10 13-12-37](https://github.com/user-attachments/assets/f635f7ba-5fd8-4201-9141-987867b2096b)
 
 
