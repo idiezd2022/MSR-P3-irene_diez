@@ -218,9 +218,9 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 Con esto lanzamos todo lo relacionado con la simulación del robot y su teleoperación.
 ![Captura desde 2025-05-08 21-19-26](https://github.com/user-attachments/assets/3bf390bd-c38a-423d-bc80-2f14eae48b6b)
 
-Como veremos en el siguiente video, la teleoperacion de las ruedas fucnionan ya que los controladores se han cargado correctamente. Aunque como se puede ver, no se manejar el robot correctamente.
+Como veremos en el siguiente video, la teleoperacion de las ruedas funcionan ya que los controladores se han cargado correctamente. Aunque como se puede ver, no se manejar el robot correctamente.
 
-[wheel_controllers](https://github.com/idiezd2022/MSR-P3-irene_diez/blob/main/visual_things/wheel_controllers.mp4)
+[wheel_controllers](https://urjc-my.sharepoint.com/:v:/g/personal/i_diezd_2022_alumnos_urjc_es/Edkg727azRdNr8ceqz0vRtMB86JsJXNdoDOhd6_5in01_A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=hye54n)
 
 Por otro lado, para poder mover el brazo, usaremos el plugin en rviz de moveit, MotionPlanning. Una vez lo añadimos, usaremos dos pestañas en concreto.
 - `Context`: Esta pestaña sirve para elegit el planificador con el que queremos realizar el plan. Muy importante seleccionar el planificador OMPL para poder planificar el movimiento de nuestro brazo, ya que sino no funciona. Cabe destacar que en la siguiente pestaña cada vez que se cambia de grupo, el planificador se configura al de por defecto (que es CHOMP), por ello hay que tener en cuenta esto cada vez que lo realizamos para poder cambiarlo y no experimentar errores.
@@ -228,11 +228,30 @@ Por otro lado, para poder mover el brazo, usaremos el plugin en rviz de moveit, 
 
 ![Captura desde 2025-05-10 15-20-12](https://github.com/user-attachments/assets/78330c06-5f41-4740-bd17-420742716a49)
 
+### REALIZACIÓN PICK AND PLACE.
+
+Para hacer esta secuencia, al no tener mucho control sobre las ruedas y por falta de tiempo, decidí priorizar el pick and place. Para ello, decidí no mover el robot y mover la posición incial de las cajas a una que permitiese al robot llegar directamente. De esta forma, puede conseguir que me realizase toda la secuencia. Como vemos en la imagen adjuntada abajo, el robot coge perfectamente hasta el cubo y lo deja depositado en su bandeja, para luego volver a su posición inicial.
+
+![Captura desde 2025-05-10 13-12-37](https://github.com/user-attachments/assets/f635f7ba-5fd8-4201-9141-987867b2096b)
+
+**SUPER IMPORTANTE: Aqui dejo adjuntado el video que realiza la secuencia. Github no me deja subir el video al repositorio, asi que he tenido que ponerlo directamente en mi OneDrive. Cabe destacar que el video va un poco lento y es un poco largo (6 minutos), ya que grabar la pantalla y usar vncweb desde ssh hace que vaya a tirones.**
 
 ![Video_pick_and_place](https://urjc-my.sharepoint.com/:v:/g/personal/i_diezd_2022_alumnos_urjc_es/EU3Gq4X8mPNHizQja2--0XkB-a8X2gV9mKxNTDHSXPa3CQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=wLPijL)
 
+Para esta parte, si he realizado un rosbag de los joints y del imu. Ya que no muevo el robot, en este rosbag los datos del brazo son los unicos que contienen valores. Además, tampoco he podido realizar la gráfica con estos datos por que no he podido pasarlos del rosbag a cualquier otro formato que me permitiera manejarlos (en el ordenador de la uni, intentando hacer el código, me pedia unas dependencias que no estaban instaladas y no tenia mas tiempo de mirar alternativas).
+El rosbag (entregado también en la entrega), se encuentra en la carpeta del repositorio llamada rosbag_topics.
 
-![Captura desde 2025-05-10 13-12-37](https://github.com/user-attachments/assets/f635f7ba-5fd8-4201-9141-987867b2096b)
+# DIFICULTADES EXPERIMENTADAS DURANTE LA REALIZACIÓN DE LA PRÁCTICA,
+
+Durante la realización de esta práctica he atravesado bastantes dificultades durante el desarrollo de esta misma. Cabe destacar, que gracias al foro, muchas de estas pude solucionarlas.
+
+- Realización de los xacros: Esta parte fue bastante costosa porque me costó entender como se formaba cada xacro.
+- Rviz: me costó visualizar mi robot en rviz, ya que no sabia como configurar bien el rviz. Viendo los mensajes puestos en el foro, pude solucionar esto (ya que no estaba seleccionando el topic que publicaba el robot).
+- Visualización de las cámaras: al principio, tras varias pruebas y cambios en los xacros, estas no se veían. Tras muchas vueltas, vi que en el launcher tenía mal puestos los topics (no revisé bien).
+- Ordenadores de la universidad y problemas con las dependencias instaladas. Este problema se pudo resolver el ultimo dia de practicas después de varios días con errores sin saber cual era el problema, donde había que instalar unas dependencias que daban error. Esto tan solo se arregló en un par de ordenadores de alli ya que nos ayudó el profe a instalarlo (gracias a esto pude realizar el pick and place).
+- Movimiento del brazo: cuando llegué a la parte de planificar, este hacía y ejecutaba el plan, pero no se movía. Tras dar varias vueltas una compañera y yo, pudimos ver que el problema era que no le habiamos puesto suficiente fuerza en los joints del scara. Hay que ponerle una que asegure que el robot tenga fuerza suficiente.
+
+
 
 
 
