@@ -201,7 +201,35 @@ default: true
 use_sim_time: true
 ```
 
-Una vez que tenemos esto, tras commprar que tenemos los dos paquetes correctamente implementados y los launchers modificados con los nuevos cambios, procedemos a la siguiente parte de la parte B.
+Una vez que tenemos esto, tras comprobar que tenemos los dos paquetes correctamente implementados y los launchers modificados con los nuevos cambios, procedemos a la siguiente parte de la parte B. 
+Launcheamos los siguientes launchers:
+
+```bash
+ros2 launch lykos_description robot_gazebo.launch.py world_name:=urjc_excavation_msr
+ros2 launch lykos_moveit_config move_group.launch.py
+ros2 launch lykos_description robot_controllers.launch.py
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+![Captura desde 2025-05-08 21-27-04](https://github.com/user-attachments/assets/3a817cbc-52f8-4f40-8922-2c2eaebe3e3e)
+![Captura desde 2025-05-08 21-19-56](https://github.com/user-attachments/assets/852ab205-0858-458c-b568-bf0e4e26ec5a)
+
+
+Con esto lanzamos todo lo relacionado con la simulación del robot y su teleoperación.
+![Captura desde 2025-05-08 21-19-26](https://github.com/user-attachments/assets/3bf390bd-c38a-423d-bc80-2f14eae48b6b)
+
+Como veremos en el siguiente video, la teleoperacion de las ruedas fucnionan ya que los controladores se han cargado correctamente. Aunque como se puede ver, no se manejar el robot correctamente.
+
+[wheel_controllers]()
+
+Por otro lado, para poder mover el brazo, usaremos el plugin en rviz de moveit, MotionPlanning. Una vez lo añadimos, usaremos dos pestañas en concreto.
+- `Context`: Esta pestaña sirve para elegit el planificador con el que queremos realizar el plan. Muy importante seleccionar el planificador OMPL para poder planificar el movimiento de nuestro brazo, ya que sino no funciona. Cabe destacar que en la siguiente pestaña cada vez que se cambia de grupo, el planificador se configura al de por defecto (que es CHOMP), por ello hay que tener en cuenta esto cada vez que lo realizamos para poder cambiarlo y no experimentar errores.
+- `Planning`: Esta otra pestaña es la que nos permite realizar las planificaciones que necesitemos y ejecutarlas. Podremos elegir entre los dos grupos creados en el paquete moveit, Scara o Gripper, y sus correspondientes poses. La actual, target, release, etc. En este caso tuve que añadir una pose mas a mano ya que a la hora de coger la caja no ajusté bien al principio los parámetros. Por último, plan and execute es el botón que realiza la acción. Veremos, tanto en el simulador de gazebo como en el rviz, el movimiento que realiza el scara (como se observa en la siguiente imagen).
+
+![Captura desde 2025-05-10 15-20-12](https://github.com/user-attachments/assets/78330c06-5f41-4740-bd17-420742716a49)
+
+
+![Captura desde 2025-05-10 13-12-37](https://github.com/user-attachments/assets/f635f7ba-5fd8-4201-9141-987867b2096b)
 
 
 
